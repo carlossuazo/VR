@@ -70,7 +70,7 @@ public class ObjectController : MonoBehaviour
         int numSibs = transform.parent.childCount;
         sibIdx = (sibIdx + Random.Range(1, numSibs)) % numSibs;
         GameObject randomSib = transform.parent.GetChild(sibIdx).gameObject;
-
+        Player.sibIdx = sibIdx;
         // Computes new object's location.
         float angle = Random.Range(-Mathf.PI, Mathf.PI);
         float distance = Random.Range(_minObjectDistance, _maxObjectDistance);
@@ -114,7 +114,7 @@ public class ObjectController : MonoBehaviour
 
     public void OnBecameVisible(){
         //Destroy(gameObject, 3);
-        StartCoroutine(ExecuteAfterTime(10f));
+        StartCoroutine(ExecuteAfterTime(3f));
     }
 
     IEnumerator ExecuteAfterTime(float time)
@@ -130,10 +130,9 @@ public class ObjectController : MonoBehaviour
     public void IncreaseScore()
     {
 
-        GameObject enemy;
-        enemy = GameObject.FindWithTag("Hostage");
+        
 
-        if (enemy == null)
+        if (Player.sibIdx != 0)
         {
             Player.SCORE++;
         }else{
